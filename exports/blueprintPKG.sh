@@ -1,11 +1,9 @@
 #!/bin/sh
 #########################################################################################
 #
-# CloudClient  : Cloud Solutions Engineering, Management Business Unit, VMware
 # Description  : Script to export all blueprints
-# Date         : February 2016
-# Version      : vRA 7.0
-# https://vsential.com/2016/02/26/export-vrealize-automation-7-blueprints
+# Date         : October 2017
+# Version      : vRA 7+
 #
 #########################################################################################
 #
@@ -32,7 +30,7 @@ $cloudclient_home/bin/cloudclient.sh vra package list --format CSV --export /tmp
 # Parse output and massage
 cat /tmp/list-package.txt | grep ${name} | awk -F , {'print $1'} > /tmp/package.txt
 
-$cloudclient_home/bin/cloudclient.sh vra package export --pkgId $(cat /tmp/package.txt) --path /tmp/${name}
+$cloudclient_home/bin/cloudclient.sh vra package export --pkgId $(cat /tmp/package.txt) --path /tmp/${name} --secure false
 
 # Logout CloudClient
 $cloudclient_home/bin/cloudclient.sh vra logout
