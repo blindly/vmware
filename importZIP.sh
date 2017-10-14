@@ -1,7 +1,7 @@
 #!/bin/sh
 #########################################################################################
 #
-# Description  : Script to export all blueprints
+# Description  : Script to import exported ZIPs
 # Date         : October 2017
 # Version      : vRA 7+
 #
