@@ -18,21 +18,28 @@ export type="property-group"
 # Execute CloudClient
 $cloudclient_home/bin/cloudclient.sh vra content list --pageSize 100 --format CSV --export /tmp/list-content.txt
 
-# Parse output and massage
-cat /tmp/list-content.txt | grep ${type} | awk -F , {'print $1'} | sed '1d' > /tmp/contentIds.txt
+if [ -e /tmp/list-content.txt ] ; then
 
-# Concatenate all ids into 1 line
-awk '{print $1}' < /tmp/contentIds.txt | paste -s -d, - > /tmp/allContent.txt
+  # Parse output and massage
+  cat /tmp/list-content.txt | grep ${type} | awk -F , {'print $1'} | sed '1d' > /tmp/contentIds.txt
 
-$cloudclient_home/bin/cloudclient.sh vra package create --name ${name}-${today} --ids $(cat /tmp/allContent.txt);
+  # Concatenate all ids into 1 line
+  awk '{print $1}' < /tmp/contentIds.txt | paste -s -d, - > /tmp/allContent.txt
 
-# Execute CloudClient
-$cloudclient_home/bin/cloudclient.sh vra package list --format CSV --export /tmp/list-package.txt
+  $cloudclient_home/bin/cloudclient.sh vra package create --name ${name}-${today} --ids $(cat /tmp/allContent.txt);
 
-# Parse output and massage
-cat /tmp/list-package.txt | grep ${name}-${today} | awk -F , {'print $1'} > /tmp/package.txt
+  # Execute CloudClient
+  $cloudclient_home/bin/cloudclient.sh vra package list --format CSV --export /tmp/list-package.txt
 
-$cloudclient_home/bin/cloudclient.sh vra package export --pkgId $(cat /tmp/package.txt) --path /tmp/${name}-${today} --secure false
+  # Parse output and massage
+  cat /tmp/list-package.txt | grep ${name}-${today} | awk -F , {'print $1'} > /tmp/package.txt
+
+  $cloudclient_home/bin/cloudclient.sh vra package export --pkgId $(cat /tmp/package.txt) --path /tmp/${name}-${today} --secure false
+
+else
+  echo "Failed to export content list"
+
+fi
 
 # Logout CloudClient
 $cloudclient_home/bin/cloudclient.sh vra logout
