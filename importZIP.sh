@@ -7,14 +7,21 @@
 #
 #########################################################################################
 #
-# Setup environment variables for auto login to CloudClient Shell
-. ./env.sh
 
 read -p "Enter full path of zip file to import: " fullPathZip
 
-# Execute CloudClient
-$cloudclient_home/bin/cloudclient.sh vra content import --path ${fullPathZip} --resolution OVERWRITE --precheck WARN --verbose
+if [ -e ${fullPathZip} ] ; then
 
-# Logout CloudClient
-$cloudclient_home/bin/cloudclient.sh vra logout
+  # Setup environment variables for auto login to CloudClient Shell
+  . ./env.sh
 
+  # Execute CloudClient
+  $cloudclient_home/bin/cloudclient.sh vra content import --path ${fullPathZip} --resolution OVERWRITE --precheck WARN --verbose
+
+  # Logout CloudClient
+  $cloudclient_home/bin/cloudclient.sh vra logout
+
+else
+  echo "Error: File Not Found. Check the path of your zip file"
+
+fi
