@@ -10,7 +10,7 @@
 
 read -p "Enter full path of zip file to import: " fullPathZip
 
-if [ -e ${fullPathZip} ] ; then
+if [ -n ${fullPathZip} ] && [ -f ${fullPathZip} ] ; then
 
   # Setup environment variables for auto login to CloudClient Shell
   . ./env.sh
