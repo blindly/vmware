@@ -12,3 +12,5 @@
     - Logs into VRA via cloudclient and restores an exported ZIP.
   - destroy.sh
     - Logs into VRA via cloudclient and destroys one page of deployments
+  - provision.sh
+    - Logs into VRA via cloudclient and provisions
