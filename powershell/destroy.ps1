@@ -8,7 +8,7 @@ if ( Test-Path -path $file ) {
     $deployments = Get-Content $file
 
     Foreach ($deployment in $deployments) {
-	    write-host $deployment
+	write-host "removing deployment: $deployment"
         if ( $deployment ) {
             $destroy = "$dir\bin\cloudclient.bat vra deployment action execute --action Destroy --id $deployment"
             iex $destroy
