@@ -15,3 +15,6 @@
       - Logs into VRA via cloudclient and destroys one page of deployments
     - provision.sh
       - Logs into VRA via cloudclient and provisions
+  - Powershell (Windows)
+    - destroy.ps1
+      - Logs into VRA via cloudclient and destroys one page of deployments
